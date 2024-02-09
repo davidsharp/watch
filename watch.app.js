@@ -19,7 +19,7 @@ const draw = () => {
   g.setFontAlign(0, 0).setFont("6x8",4).drawString(timeStr, x, y);
   // Show date and day of week
   const dateStr = require("locale").date(date, 0).toUpperCase()+"\n"+
-                require("locale").dow(date, 0).toUpperCase();
+                date.getDay();
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y+48);
 
   g.drawImage(kanji,20,50,{scale:2});
