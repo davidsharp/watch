@@ -2,6 +2,11 @@
   // we also define functions using 'let fn = function() {..}' for the same reason. function decls are global
 let drawTimeout;
 
+const kanji = {
+  width : 70, height : 10, bpp : 1,
+  buffer : atob("AAAAQBAEAABA/h+BAEAQDgECCEIEQRBARAQIIfiSdJ/z+P4ghCRQVAQREED+EIEBUDg/gQIIfgYJIVAQBAghCCQkSSJIECCIIQkRREVAQP4hmBDAEH/f8A==")
+}
+
 // Actually draw the watch face
 let draw = function() {
   var x = g.getWidth() / 2;
@@ -16,6 +21,8 @@ let draw = function() {
   var dateStr = require("locale").date(date, 0).toUpperCase()+"\n"+
                 require("locale").dow(date, 0).toUpperCase();
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y+48);
+
+  g.drawImage(kanji,20,50,{scale:2});
 
   // queue next draw
   if (drawTimeout) clearTimeout(drawTimeout);
