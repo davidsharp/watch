@@ -7,7 +7,8 @@ let draw = function() {
   var x = g.getWidth() / 2;
   var y = g.getHeight() / 2;
   g.reset().clearRect(Bangle.appRect); // clear whole background (w/o widgets)
-  g.setColor(0.2,0.2,1);
+  g.setBgColor(g.theme.bg);
+  g.setColor(g.theme.fg);
   var date = new Date();
   var timeStr = '0x'+date.getHours().toString(16)+':'+date.getMinutes()
   g.setFontAlign(0, 0).setFont("6x8",4).drawString(timeStr, x, y);
