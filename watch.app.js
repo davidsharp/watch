@@ -8,17 +8,17 @@ const kanji = {
 }
 
 // Actually draw the watch face
-let draw = function() {
-  var x = g.getWidth() / 2;
-  var y = g.getHeight() / 2;
+const draw = () => {
+  const x = g.getWidth() / 2;
+  const y = g.getHeight() / 2;
   g.reset().clearRect(Bangle.appRect); // clear whole background (w/o widgets)
   g.setBgColor(g.theme.bg);
   g.setColor(g.theme.fg);
-  var date = new Date();
-  var timeStr = date.getHours()+':'+date.getMinutes();
+  const date = new Date();
+  const timeStr = date.getHours()+':'+date.getMinutes().toString().padStart(2,'0');
   g.setFontAlign(0, 0).setFont("6x8",4).drawString(timeStr, x, y);
   // Show date and day of week
-  var dateStr = require("locale").date(date, 0).toUpperCase()+"\n"+
+  const dateStr = require("locale").date(date, 0).toUpperCase()+"\n"+
                 require("locale").dow(date, 0).toUpperCase();
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y+48);
 
@@ -26,7 +26,7 @@ let draw = function() {
 
   // queue next draw
   if (drawTimeout) clearTimeout(drawTimeout);
-  drawTimeout = setTimeout(function() {
+  drawTimeout = setTimeout(() => {
     drawTimeout = undefined;
     draw();
   }, 60000 - (Date.now() % 60000));
@@ -35,7 +35,7 @@ let draw = function() {
 // Show launcher when middle button pressed
 Bangle.setUI({
   mode : "clock",
-  remove : function() {
+  remove : () => {
     // Called to unload all of the clock app
     if (drawTimeout) clearTimeout(drawTimeout);
     drawTimeout = undefined;
