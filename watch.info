@@ -1,0 +1,5 @@
+require("Storage").write("watch.info",{
+  "id":"dash-watch",
+  "name":"Dash Watch",
+  "src":"watch.app.js"
+});
