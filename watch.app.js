@@ -15,7 +15,7 @@ let draw = function() {
   g.setBgColor(g.theme.bg);
   g.setColor(g.theme.fg);
   var date = new Date();
-  var timeStr = '0x'+date.getHours().toString(16)+':'+date.getMinutes()
+  var timeStr = date.getHours()+':'+date.getMinutes();
   g.setFontAlign(0, 0).setFont("6x8",4).drawString(timeStr, x, y);
   // Show date and day of week
   var dateStr = require("locale").date(date, 0).toUpperCase()+"\n"+
@@ -39,7 +39,6 @@ Bangle.setUI({
     // Called to unload all of the clock app
     if (drawTimeout) clearTimeout(drawTimeout);
     drawTimeout = undefined;
-    delete Graphics.prototype.setFontAnton;
   }});
 // Load widgets
 Bangle.loadWidgets();
