@@ -44,7 +44,7 @@ const draw = () => {
   const timeStr = date.getHours().toString().padStart(2,'0')+':'+date.getMinutes().toString().padStart(2,'0');
   g.setFontAlign(0, 0).setFont("6x8",4).drawString(timeStr, x, y);
   // Show date and day of week
-  const dateStr = require("locale").date(date, 0).toUpperCase();
+  const dateStr = date.getDate()+'/'+(date.getMonth()+1)
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y+48);
 
   g.drawImage(kanjiDays[date.getDay()],x-15,y-60,{scale:3});
