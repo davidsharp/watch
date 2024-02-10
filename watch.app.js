@@ -48,13 +48,15 @@ const draw = () => {
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y+48);
 
   g.drawImage(kanjiDays[date.getDay()],x-15,y-60,{scale:3});
+  g.drawLine(x-30,y+20,x-30+date.getSeconds(),y+20);
+  g.drawLine(x-30,y+20+2,x+30,y+20+2)
 
   // queue next draw
   if (drawTimeout) clearTimeout(drawTimeout);
   drawTimeout = setTimeout(() => {
     drawTimeout = undefined;
     draw();
-  }, 60000 - (Date.now() % 60000));
+  }, 1000 - (Date.now() % 1000));
 };
 
 // Show launcher when middle button pressed
