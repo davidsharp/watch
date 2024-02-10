@@ -2,11 +2,6 @@
   // we also define functions using 'let fn = function() {..}' for the same reason. function decls are global
 let drawTimeout;
 
-const kanji = {
-  width : 70, height : 10, bpp : 1,
-  buffer : atob("AAAAQBAEAABA/h+BAEAQDgECCEIEQRBARAQIIfiSdJ/z+P4ghCRQVAQREED+EIEBUDg/gQIIfgYJIVAQBAghCCQkSSJIECCIIQkRREVAQP4hmBDAEH/f8A==")
-}
-
 const kanjiDays = [
   {
     width : 10, height : 10,
