@@ -7,6 +7,37 @@ const kanji = {
   buffer : atob("AAAAQBAEAABA/h+BAEAQDgECCEIEQRBARAQIIfiSdJ/z+P4ghCRQVAQREED+EIEBUDg/gQIIfgYJIVAQBAghCCQkSSJIECCIIQkRREVAQP4hmBDAEH/f8A==")
 }
 
+const kanjiDays = [
+  {
+    width : 10, height : 10, bpp : 1,
+    buffer : atob("AA/iCIIgj+IIgiCP4A==")
+  },
+  {
+    width : 10, height : 10, bpp : 1,
+    buffer : atob("AAfhCH4QhCH4QiCIYA==")
+  },
+  {
+    width : 10, height : 10, bpp : 1,
+    buffer : atob("BAEARJJFAQBgJBCYEA==")
+  },
+  {
+    width : 10, height : 10, bpp : 1,
+    buffer : atob("BAEARdIVBUJIkURDAA==")
+  },
+  {
+    width : 10, height : 10, bpp : 1,
+    buffer : atob("BAEAQf8EA4FQkkRBAA==")
+  },
+  {
+    width : 10, height : 10, bpp : 1,
+    buffer : atob("AAOBEP5ET+BAkhUf8A==")
+  },
+  {
+    width : 10, height : 10, bpp : 1,
+    buffer : atob("BAEAQP4EAQBAEAQf8A==")
+  },
+]
+
 // Actually draw the watch face
 const draw = () => {
   const x = g.getWidth() / 2;
@@ -15,14 +46,13 @@ const draw = () => {
   g.setBgColor(g.theme.bg);
   g.setColor(g.theme.fg);
   const date = new Date();
-  const timeStr = date.getHours()+':'+date.getMinutes().toString().padStart(2,'0');
+  const timeStr = date.getHours().toString().padStart(2,'0')+':'+date.getMinutes().toString().padStart(2,'0');
   g.setFontAlign(0, 0).setFont("6x8",4).drawString(timeStr, x, y);
   // Show date and day of week
-  const dateStr = require("locale").date(date, 0).toUpperCase()+"\n"+
-                date.getDay();
+  const dateStr = require("locale").date(date, 0).toUpperCase();
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y+48);
 
-  g.drawImage(kanji,20,50,{scale:2});
+  g.drawImage(kanjiDays[date.getDay()],20,50,{scale:2});
 
   // queue next draw
   if (drawTimeout) clearTimeout(drawTimeout);
