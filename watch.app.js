@@ -9,32 +9,32 @@ const kanji = {
 
 const kanjiDays = [
   {
-    width : 10, height : 10, bpp : 1,
-    buffer : atob("AA/iCIIgj+IIgiCP4A==")
+    width : 10, height : 10,
+    buffer : atob("AA/iCIIgj+IIgiCP4A")
   },
   {
-    width : 10, height : 10, bpp : 1,
-    buffer : atob("AAfhCH4QhCH4QiCIYA==")
+    width : 10, height : 10,
+    buffer : atob("AAfhCH4QhCH4QiCIYA")
   },
   {
-    width : 10, height : 10, bpp : 1,
-    buffer : atob("BAEARJJFAQBgJBCYEA==")
+    width : 10, height : 10,
+    buffer : atob("BAEARJJFAQBgJBCYEA")
   },
   {
-    width : 10, height : 10, bpp : 1,
-    buffer : atob("BAEARdIVBUJIkURDAA==")
+    width : 10, height : 10,
+    buffer : atob("BAEARdIVBUJIkURDAA")
   },
   {
-    width : 10, height : 10, bpp : 1,
-    buffer : atob("BAEAQf8EA4FQkkRBAA==")
+    width : 10, height : 10,
+    buffer : atob("BAEAQf8EA4FQkkRBAA")
   },
   {
-    width : 10, height : 10, bpp : 1,
-    buffer : atob("AAOBEP5ET+BAkhUf8A==")
+    width : 10, height : 10,
+    buffer : atob("AAOBEP5ET+BAkhUf8A")
   },
   {
-    width : 10, height : 10, bpp : 1,
-    buffer : atob("BAEAQP4EAQBAEAQf8A==")
+    width : 10, height : 10,
+    buffer : atob("BAEAQP4EAQBAEAQf8A")
   },
 ]
 
