@@ -55,9 +55,13 @@ const draw = () => {
   g.setBgColor(g.theme.bg);
   g.setColor(g.theme.fg);
   const date = new Date();
-  g.setFontAlign(1, 0).setFont("5x9Numeric7Seg",4).drawString(/*88||*/date.getHours().toString().padStart(2,'0'), x-2, y);
+  g.setColor(0.3,0.3,0.3);//g.theme.bgH);
+  g.setFontAlign(1, 0).setFont("5x9Numeric7Seg",4).drawString(88, x-2, y);
+  g.setFontAlign(-1, 0).setFont("5x9Numeric7Seg",4).drawString(88, x+6, y);
+  g.setColor(g.theme.fg);
+  g.setFontAlign(1, 0).setFont("5x9Numeric7Seg",4).drawString(date.getHours().toString().padStart(2,'0'), x-2, y);
   g.setFontAlign(0, 0).setFont("5x9Numeric7Seg",4).drawString(':', x+2, y);
-  g.setFontAlign(-1, 0).setFont("5x9Numeric7Seg",4).drawString(/*88||*/date.getMinutes().toString().padStart(2,'0'), x+6, y);
+  g.setFontAlign(-1, 0).setFont("5x9Numeric7Seg",4).drawString(date.getMinutes().toString().padStart(2,'0'), x+6, y);
   // Show date and day of week
   const dateStr = date.getDate()+' '+require("date_utils").months(1)[date.getMonth()].toUpperCase()
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y+48);
