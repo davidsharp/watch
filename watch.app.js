@@ -68,7 +68,7 @@ const draw = () => {
 
   batteryReadings.push(E.getBattery())
   if(batteryReadings.length>50) batteryReadings.shift()
-  const battery = (batteryReadings.reduce((a,b)=>a+b)/batteryReadings.length).toFixed(0);
+  const battery = (batteryReadings.reduce((a,b)=>a+b)/batteryReadings.length).toFixed(0)+'%';
 
   const steps = (Bangle.getHealthStatus("day").steps/1000).toFixed(1)+'k'
 
