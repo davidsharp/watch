@@ -55,7 +55,7 @@ const draw = () => {
   g.setBgColor(g.theme.bg);
   g.setColor(g.theme.fg);
   const date = new Date();
-  g.setColor(0.3,0.3,0.3);//g.theme.bgH);
+  g.setColor(g.theme.dark?0x222222:0xdddddd);
   g.setFontAlign(1, 0).setFont("5x9Numeric7Seg",4).drawString(88, x-2, y);
   g.setFontAlign(-1, 0).setFont("5x9Numeric7Seg",4).drawString(88, x+6, y);
   g.setColor(g.theme.fg);
