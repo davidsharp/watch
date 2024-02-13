@@ -2,6 +2,8 @@
   // we also define functions using 'let fn = function() {..}' for the same reason. function decls are global
 let drawTimeout;
 
+require("Font5x9Numeric7Seg").add(Graphics);
+
 // return false if unconfident so we can handle the fallback separately
 const bpmConfidenceCheck = (status) => {
   const conf = status.bpmConfidence || status.confidence
@@ -54,7 +56,7 @@ const draw = () => {
   g.setColor(g.theme.fg);
   const date = new Date();
   const timeStr = date.getHours().toString().padStart(2,'0')+':'+date.getMinutes().toString().padStart(2,'0');
-  g.setFontAlign(0, 0).setFont("6x8",4).drawString(timeStr, x, y);
+  g.setFontAlign(0, 0).setFont("5x9Numeric7Seg",4).drawString(timeStr, x, y);
   // Show date and day of week
   const dateStr = date.getDate()+' '+require("date_utils").months(1)[date.getMonth()].toUpperCase()
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y+48);
