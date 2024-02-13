@@ -8,7 +8,7 @@ const bpmConfidenceCheck = (status) => {
   return conf > 75 ? status.bpm : false
 }
 let bpm = bpmConfidenceCheck(Bangle.getHealthStatus('last')) || '?'
-Bangle.setHRMPower(1)
+//Bangle.setHRMPower(1)
 
 const kanjiDays = [
   {
