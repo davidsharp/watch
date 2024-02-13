@@ -75,11 +75,11 @@ const draw = () => {
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(bpm+'|'+steps+'|'+battery, x, y+66);
 
   g.drawImage(kanjiDays[date.getDay()],x-15,y-60,{scale:3});
-  if(date.getSeconds()>0)g.drawLine(x-30,y+20,x-30+date.getSeconds(),y+20);
-  g.drawLine(x-32,y+20+2,x+32,y+20+2)
-  g.drawLine(x,y+20+1,x,y+20+2)
-  g.drawLine(x-32,y+20,x-32,y+20+2)
-  g.drawLine(x+32,y+20,x+32,y+20+2)
+  if(date.getSeconds()>0)g.drawLine(x-30,y+24,x-30+date.getSeconds(),y+24);
+  g.drawLine(x-32,y+24+2,x+32,y+24+2)
+  g.drawLine(x,y+24+1,x,y+24+2)
+  g.drawLine(x-32,y+24,x-32,y+24+2)
+  g.drawLine(x+32,y+24,x+32,y+24+2)
 
   // queue next draw
   if (drawTimeout) clearTimeout(drawTimeout);
