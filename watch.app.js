@@ -33,6 +33,8 @@ const kanjiDays = [
   },
 ]
 
+//console.log(Bangle.getHealthStatus('last'))
+
 // Actually draw the watch face
 const draw = () => {
   const x = g.getWidth() / 2;
@@ -46,6 +48,11 @@ const draw = () => {
   // Show date and day of week
   const dateStr = date.getDate()+' '+require("date_utils").months(1)[date.getMonth()].toUpperCase()
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y+48);
+
+  // update this less frequently?
+  const status = Bangle.getHealthStatus('last')
+  const bpm = status.bpmConfidence>75?status.bpm:'?'
+  g.setFontAlign(0, 0).setFont("6x8", 2).drawString(bpm, x, y+66);
 
   g.drawImage(kanjiDays[date.getDay()],x-15,y-60,{scale:3});
   if(date.getSeconds()>0)g.drawLine(x-30,y+20,x-30+date.getSeconds(),y+20);
