@@ -2,6 +2,14 @@
   // we also define functions using 'let fn = function() {..}' for the same reason. function decls are global
 let drawTimeout;
 
+// return false if unconfident so we can handle the fallback separately
+const bpmConfidenceCheck = (status) => {
+  const conf = status.bpmConfidence || status.confidence
+  return conf > 75 ? status.bpm : false
+}
+let bpm = bpmConfidenceCheck(Bangle.getHealthStatus('last')) || '?'
+Bangle.setHRMPower(1)
+
 const kanjiDays = [
   {
     width : 10, height : 10,
@@ -49,9 +57,6 @@ const draw = () => {
   const dateStr = date.getDate()+' '+require("date_utils").months(1)[date.getMonth()].toUpperCase()
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y+48);
 
-  // update this less frequently?
-  const status = Bangle.getHealthStatus('last')
-  const bpm = status.bpmConfidence>75?status.bpm:'?'
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(bpm, x, y+66);
 
   g.drawImage(kanjiDays[date.getDay()],x-15,y-60,{scale:3});
@@ -77,6 +82,11 @@ Bangle.setUI({
     if (drawTimeout) clearTimeout(drawTimeout);
     drawTimeout = undefined;
   }});
+Bangle.on('HRM',status => {
+  // use last one if we're not confident
+  bpm = bpmConfidenceCheck(status) || bpm
+  console.log('hrm event: ',status)
+})
 // Load widgets
 Bangle.loadWidgets();
 draw();
