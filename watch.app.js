@@ -70,7 +70,7 @@ const draw = () => {
   if(batteryReadings.length>50) batteryReadings.shift()
   const battery = (batteryReadings.reduce((a,b)=>a+b)/batteryReadings.length).toFixed(0);
 
-  const steps = Bangle.getHealthStatus("day").steps
+  const steps = (Bangle.getHealthStatus("day").steps/1000).toFixed(1)+'k'
 
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(bpm+'|'+steps+'|'+battery, x, y+66);
 
