@@ -7,12 +7,10 @@ const bpmConfidenceCheck = (status) => {
   const conf = status.bpmConfidence || status.confidence
   return conf > 75 ? status.bpm : false
 }
-let bpm = bpmConfidenceCheck(Bangle.getHealthStatus('last')) || '?'
+let bpm = bpmConfidenceCheck(Bangle.getHealthStatus()) || '?'
 //Bangle.setHRMPower(1)
 
 let batteryReadings = []
-
-let steps = Bangle.getStepCount()
 
 const kanjiDays = [
   {
@@ -65,9 +63,9 @@ const draw = () => {
   if(batteryReadings.length>50) batteryReadings.shift()
   const battery = (batteryReadings.reduce((a,b)=>a+b)/batteryReadings.length).toFixed(0);
 
-  //steps = Bangle.getStepCount()
+  const steps = Bangle.getHealthStatus("day").steps
 
-  g.setFontAlign(0, 0).setFont("6x8", 2).drawString(bpm+' | '+/*steps+' | '+*/battery, x, y+66);
+  g.setFontAlign(0, 0).setFont("6x8", 2).drawString(bpm+'|'+steps+'|'+battery, x, y+66);
 
   g.drawImage(kanjiDays[date.getDay()],x-15,y-60,{scale:3});
   if(date.getSeconds()>0)g.drawLine(x-30,y+20,x-30+date.getSeconds(),y+20);
@@ -97,7 +95,6 @@ Bangle.on('health',status => {
   bpm = bpmConfidenceCheck(status) || bpm
   console.log('hrm event: ',status)
 })
-//Bangle.on('step',count=>steps=count)
 // Load widgets
 Bangle.loadWidgets();
 draw();
