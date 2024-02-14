@@ -53,9 +53,9 @@ const draw = () => {
   g.setColor(g.theme.fg);
   const date = new Date()
   drawTime(date,x,y)
-  drawDate(date,x,y)
-  drawDateKanji(date,x,y)
-  drawSeconds(date,x,y)
+  drawDate(date,x,y+48)
+  drawDateKanji(date,x,y-60)
+  drawSeconds(date,x,y+24)
 
   batteryReadings.push(E.getBattery())
   if(batteryReadings.length>50) batteryReadings.shift()
@@ -83,18 +83,19 @@ const drawTime = (date,x,y) => {
   g.setFontAlign(-1, 0).setFont("5x9Numeric7Seg",4).drawString(date.getMinutes().toString().padStart(2,'0'), x+6, y);
 }
 const drawSeconds = (date,x,y) => {
-  if(date.getSeconds()>0)g.drawLine(x-30,y+24,x-30+date.getSeconds(),y+24);
-  g.drawLine(x-32,y+24+2,x+32,y+24+2)
-  g.drawLine(x,y+24+1,x,y+24+2)
-  g.drawLine(x-32,y+24,x-32,y+24+2)
-  g.drawLine(x+32,y+24,x+32,y+24+2)
+  if(date.getSeconds()>0)g.drawLine(x-30,y,x-30+date.getSeconds(),y);
+  g.drawLine(x-32,y+2,x+32,y+2)
+  g.drawLine(x,y+1,x,y+2)
+  g.drawLine(x-32,y,x-32,y+2)
+  g.drawLine(x+32,y,x+32,y+2)
 }
 const drawDateKanji = (date,x,y) => {
-  g.drawImage(kanjiDays[date.getDay()],x-15,y-60,{scale:3});
+  const scale = 3
+  g.drawImage(kanjiDays[date.getDay()],x-(5*scale),y,{scale:scale});
 }
 const drawDate = (date,x,y) => {
   const dateStr = date.getDate()+' '+require("date_utils").months(1)[date.getMonth()].toUpperCase()
-  g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y+48);
+  g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y);
 }
 const drawSteps = (x,y) => {}
 const drawBattery = (x,y) => {}
