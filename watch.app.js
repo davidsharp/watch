@@ -10,7 +10,6 @@ const bpmConfidenceCheck = (status) => {
   return conf > 75 ? status.bpm : false
 }
 let bpm = bpmConfidenceCheck(Bangle.getHealthStatus()) || '?'
-//Bangle.setHRMPower(1)
 
 let batteryReadings = []
 
@@ -45,8 +44,6 @@ const kanjiDays = [
   },
 ]
 
-//console.log(Bangle.getHealthStatus('last'))
-
 // Actually draw the watch face
 const draw = () => {
   const x = g.getWidth() / 2;
@@ -54,17 +51,11 @@ const draw = () => {
   g.reset().clearRect(Bangle.appRect); // clear whole background (w/o widgets)
   g.setBgColor(g.theme.bg);
   g.setColor(g.theme.fg);
-  const date = new Date();
-  g.setColor(g.theme.dark?0x222222:0xdddddd);
-  g.setFontAlign(1, 0).setFont("5x9Numeric7Seg",4).drawString(88, x-2, y);
-  g.setFontAlign(-1, 0).setFont("5x9Numeric7Seg",4).drawString(88, x+6, y);
-  g.setColor(g.theme.fg);
-  g.setFontAlign(1, 0).setFont("5x9Numeric7Seg",4).drawString(date.getHours().toString().padStart(2,'0'), x-2, y);
-  g.setFontAlign(0, 0).setFont("5x9Numeric7Seg",4).drawString(':', x+2, y);
-  g.setFontAlign(-1, 0).setFont("5x9Numeric7Seg",4).drawString(date.getMinutes().toString().padStart(2,'0'), x+6, y);
-  // Show date and day of week
-  const dateStr = date.getDate()+' '+require("date_utils").months(1)[date.getMonth()].toUpperCase()
-  g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y+48);
+  const date = new Date()
+  drawTime(date,x,y)
+  drawDate(date,x,y)
+  drawDateKanji(date,x,y)
+  drawSeconds(date,x,y)
 
   batteryReadings.push(E.getBattery())
   if(batteryReadings.length>50) batteryReadings.shift()
@@ -74,13 +65,6 @@ const draw = () => {
 
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(bpm+'|'+steps+'|'+battery, x, y+66);
 
-  g.drawImage(kanjiDays[date.getDay()],x-15,y-60,{scale:3});
-  if(date.getSeconds()>0)g.drawLine(x-30,y+24,x-30+date.getSeconds(),y+24);
-  g.drawLine(x-32,y+24+2,x+32,y+24+2)
-  g.drawLine(x,y+24+1,x,y+24+2)
-  g.drawLine(x-32,y+24,x-32,y+24+2)
-  g.drawLine(x+32,y+24,x+32,y+24+2)
-
   // queue next draw
   if (drawTimeout) clearTimeout(drawTimeout);
   drawTimeout = setTimeout(() => {
@@ -88,6 +72,33 @@ const draw = () => {
     draw();
   }, 1000 - (Date.now() % 1000));
 };
+
+const drawTime = (date,x,y) => {
+  g.setColor(g.theme.dark?0x222222:0xdddddd);
+  g.setFontAlign(1, 0).setFont("5x9Numeric7Seg",4).drawString(88, x-2, y);
+  g.setFontAlign(-1, 0).setFont("5x9Numeric7Seg",4).drawString(88, x+6, y);
+  g.setColor(g.theme.fg);
+  g.setFontAlign(1, 0).setFont("5x9Numeric7Seg",4).drawString(date.getHours().toString().padStart(2,'0'), x-2, y);
+  g.setFontAlign(0, 0).setFont("5x9Numeric7Seg",4).drawString(':', x+2, y);
+  g.setFontAlign(-1, 0).setFont("5x9Numeric7Seg",4).drawString(date.getMinutes().toString().padStart(2,'0'), x+6, y);
+}
+const drawSeconds = (date,x,y) => {
+  if(date.getSeconds()>0)g.drawLine(x-30,y+24,x-30+date.getSeconds(),y+24);
+  g.drawLine(x-32,y+24+2,x+32,y+24+2)
+  g.drawLine(x,y+24+1,x,y+24+2)
+  g.drawLine(x-32,y+24,x-32,y+24+2)
+  g.drawLine(x+32,y+24,x+32,y+24+2)
+}
+const drawDateKanji = (date,x,y) => {
+  g.drawImage(kanjiDays[date.getDay()],x-15,y-60,{scale:3});
+}
+const drawDate = (date,x,y) => {
+  const dateStr = date.getDate()+' '+require("date_utils").months(1)[date.getMonth()].toUpperCase()
+  g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y+48);
+}
+const drawSteps = (x,y) => {}
+const drawBattery = (x,y) => {}
+const drawHeartRate = (x,y) => {}
 
 // Show launcher when middle button pressed
 Bangle.setUI({
@@ -100,7 +111,6 @@ Bangle.setUI({
 Bangle.on('health',status => {
   // use last one if we're not confident
   bpm = bpmConfidenceCheck(status) || bpm
-  console.log('hrm event: ',status)
 })
 // Load widgets
 Bangle.loadWidgets();
