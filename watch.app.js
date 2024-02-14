@@ -95,6 +95,9 @@ const drawDateKanji = (date,x,y) => {
 }
 const drawDate = (date,x,y) => {
   const dateStr = date.getDate()+' '+require("date_utils").months(1)[date.getMonth()].toUpperCase()
+  if(dateStr == '14 FEB'){
+    g.drawImage({width:10,height:10,buffer:atob("Ybz///////f4/B4DAA==")},x+38,y-5,{scale:1})
+  }
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y);
 }
 const drawSteps = (x,y) => {}
