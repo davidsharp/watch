@@ -59,11 +59,20 @@ const draw = () => {
 
   batteryReadings.push(E.getBattery())
   if(batteryReadings.length>50) batteryReadings.shift()
-  const battery = (batteryReadings.reduce((a,b)=>a+b)/batteryReadings.length).toFixed(0)+'%';
+  const batteryPercentage = batteryReadings.reduce((a,b)=>a+b)/batteryReadings.length
+  const battery = batteryPercentage.toFixed(0)+'%';
 
   const steps = (Bangle.getHealthStatus("day").steps/1000).toFixed(1)+'k'
 
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(bpm+'|'+steps+'|'+battery, x, y+66);
+
+  g.setColor(batteryPercentage<50?1:0,batteryPercentage>25?1:0,0).drawImage(
+    {
+      width : 10, height : 10,
+      buffer : atob("Hg/H+//////9/j8HgA==")
+    },
+    (x*2)-15,5
+  )
 
   // queue next draw
   if (drawTimeout) clearTimeout(drawTimeout);
@@ -119,7 +128,7 @@ Bangle.on('health',status => {
   bpm = bpmConfidenceCheck(status) || bpm
 })
 // Load widgets
-Bangle.loadWidgets();
+//Bangle.loadWidgets();
 draw();
 setTimeout(Bangle.drawWidgets,0);
 }
