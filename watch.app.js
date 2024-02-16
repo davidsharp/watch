@@ -48,7 +48,7 @@ const kanjiDays = [
 const draw = () => {
   const x = g.getWidth() / 2;
   const y = g.getHeight() / 2;
-  g.reset().clearRect(Bangle.appRect); // clear whole background (w/o widgets)
+  g.reset().clear();//Rect(Bangle.appRect); // clear whole background (w/o widgets)
   g.setBgColor(g.theme.bg);
   g.setColor(g.theme.fg);
   const date = new Date()
@@ -66,13 +66,18 @@ const draw = () => {
 
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(bpm+'|'+steps+'|'+battery, x, y+66);
 
-  g.setColor(batteryPercentage<50?1:0,batteryPercentage>25?1:0,0).drawImage(
-    {
-      width : 10, height : 10,
-      buffer : atob("Hg/H+//////9/j8HgA==")
-    },
-    (x*2)-15,5
-  )
+  if(Bangle.isLocked()){
+    g.setColor(batteryPercentage<50?1:0,batteryPercentage>25?1:0,0).drawImage(
+      {
+        width : 10, height : 10,
+        buffer : atob("Hg/H+//////9/j8HgA==")
+      },
+      (x*2)-15,5
+    )
+  }
+  else {
+    Bangle.drawWidgets()
+  }
 
   // queue next draw
   if (drawTimeout) clearTimeout(drawTimeout);
@@ -128,7 +133,7 @@ Bangle.on('health',status => {
   bpm = bpmConfidenceCheck(status) || bpm
 })
 // Load widgets
-//Bangle.loadWidgets();
+Bangle.loadWidgets();
 draw();
 setTimeout(Bangle.drawWidgets,0);
 }
