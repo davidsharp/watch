@@ -55,7 +55,7 @@ const draw = () => {
   drawTime(date,x,y)
   drawDate(date,x,y+48)
   drawDateKanji(date,x,y-60)
-  drawSeconds(date,x,y+24)
+  drawSeconds(date,x,y+32)
 
   batteryReadings.push(E.getBattery())
   if(batteryReadings.length>50) batteryReadings.shift()
