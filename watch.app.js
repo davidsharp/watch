@@ -2,6 +2,8 @@
   // we also define functions using 'let fn = function() {..}' for the same reason. function decls are global
 let drawTimeout;
 
+const DEBUG = true;
+
 require("Font5x9Numeric7Seg").add(Graphics);
 
 // return false if unconfident so we can handle the fallback separately
@@ -120,8 +122,17 @@ const drawDate = (date,x,y) => {
 const drawSteps = (x,y) => {}
 const drawBattery = (x,y) => {}
 const drawHeartRate = (x,y) => {
+  debugX(x,y)
   g.setFontAlign(1, 0).setFont("6x8", 2).drawString(bpm, x, y);
   g.drawImage({width:10,height:10,buffer:atob("Ybz///////f4/B4DAA==")},x+5,y-5,{scale:1});
+}
+const debugX = (x,y) => {
+  if(!DEBUG) return;
+  const c = g.getColor()
+  g.setColor(1,0,0)
+  g.drawLine(x,y-5,x,y+5)
+  g.drawLine(x-5,y,x+5,y)
+  g.setColor(c)
 }
 
 // Show launcher when middle button pressed
