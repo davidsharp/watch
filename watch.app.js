@@ -57,7 +57,7 @@ const draw = () => {
   drawTime(date,x,y)
   drawDate(date,x,y+48)
   drawDateKanji(date,x,y-60)
-  drawSeconds(date,x,y+32)
+  drawSeconds(date,x,y+32,2.5)
 
   batteryReadings.push(E.getBattery())
   if(batteryReadings.length>50) batteryReadings.shift()
@@ -101,12 +101,13 @@ const drawTime = (date,x,y) => {
   g.setFontAlign(-1, 0).setFont("5x9Numeric7Seg",size).drawString(date.getMinutes().toString().padStart(2,'0'), x+(size*1.5), y);
   debugX(x,y)
 }
-const drawSeconds = (date,x,y) => {
-  if(date.getSeconds()>0)g.drawLine(x-30,y,x-30+date.getSeconds(),y);
-  g.drawLine(x-32,y+2,x+32,y+2)
-  g.drawLine(x,y+1,x,y+2)
-  g.drawLine(x-32,y,x-32,y+2)
-  g.drawLine(x+32,y,x+32,y+2)
+const drawSeconds = (date,x,y,scale) => {
+  scale = scale || 1
+  if(date.getSeconds()>0)g.fillRect(x-(30*scale),y,x-(30*scale)+(date.getSeconds()*scale),y+scale-1);
+  g.fillRect(x-(32*scale),y+(2*scale),x+(32*scale),y+(2*scale))
+  g.fillRect(x,y+1,x,y+(2*scale))
+  g.fillRect(x-(32*scale),y,x-(32*scale),y+(2*scale))
+  g.fillRect(x+(32*scale),y,x+(32*scale),y+(2*scale))
   debugX(x,y)
 }
 const drawDateKanji = (date,x,y) => {
