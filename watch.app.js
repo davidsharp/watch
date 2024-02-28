@@ -64,7 +64,8 @@ const draw = () => {
 
   const steps = (Bangle.getHealthStatus("day").steps/1000).toFixed(1)+'k'
 
-  g.setFontAlign(0, 0).setFont("6x8", 2).drawString(bpm+'|'+steps+'|'+battery, x, y+66);
+  //g.setFontAlign(0, 0).setFont("6x8", 2).drawString(bpm+'|'+steps+'|'+battery, x, y+66);
+  drawHeartRate(x,y+66)
 
   if(Bangle.isLocked()){
     g.setColor(batteryPercentage<50?1:0,batteryPercentage>25?1:0,0).drawImage(
@@ -118,7 +119,10 @@ const drawDate = (date,x,y) => {
 }
 const drawSteps = (x,y) => {}
 const drawBattery = (x,y) => {}
-const drawHeartRate = (x,y) => {}
+const drawHeartRate = (x,y) => {
+  g.setFontAlign(1, 0).setFont("6x8", 2).drawString(bpm, x, y);
+  g.drawImage({width:10,height:10,buffer:atob("Ybz///////f4/B4DAA==")},x+5,y-5,{scale:1});
+}
 
 // Show launcher when middle button pressed
 Bangle.setUI({
