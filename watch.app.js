@@ -99,6 +99,7 @@ const drawTime = (date,x,y) => {
   g.setFontAlign(1, 0).setFont("5x9Numeric7Seg",size).drawString(date.getHours().toString().padStart(2,'0'), x-(size/2), y);
   g.setFontAlign(0, 0).setFont("5x9Numeric7Seg",size).drawString(':', x+(size/2), y);
   g.setFontAlign(-1, 0).setFont("5x9Numeric7Seg",size).drawString(date.getMinutes().toString().padStart(2,'0'), x+(size*1.5), y);
+  debugX(x,y)
 }
 const drawSeconds = (date,x,y) => {
   if(date.getSeconds()>0)g.drawLine(x-30,y,x-30+date.getSeconds(),y);
@@ -106,10 +107,12 @@ const drawSeconds = (date,x,y) => {
   g.drawLine(x,y+1,x,y+2)
   g.drawLine(x-32,y,x-32,y+2)
   g.drawLine(x+32,y,x+32,y+2)
+  debugX(x,y)
 }
 const drawDateKanji = (date,x,y) => {
   const scale = 3
   g.drawImage(kanjiDays[date.getDay()],x-(5*scale),y,{scale:scale});
+  debugX(x,y)
 }
 const drawDate = (date,x,y) => {
   const dateStr = date.getDate()+' '+require("date_utils").months(1)[date.getMonth()].toUpperCase()
@@ -118,13 +121,14 @@ const drawDate = (date,x,y) => {
     g.drawImage({width:10,height:10,buffer:atob("Ybz///////f4/B4DAA==")},x+38,y-5,{scale:1})
   }
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y);
+  debugX(x,y)
 }
 const drawSteps = (x,y) => {}
 const drawBattery = (x,y) => {}
 const drawHeartRate = (x,y) => {
-  debugX(x,y)
   g.setFontAlign(1, 0).setFont("6x8", 2).drawString(bpm, x, y);
   g.drawImage({width:10,height:10,buffer:atob("Ybz///////f4/B4DAA==")},x+5,y-5,{scale:1});
+  debugX(x,y)
 }
 const debugX = (x,y) => {
   if(!DEBUG) return;
