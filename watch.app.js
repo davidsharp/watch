@@ -104,10 +104,10 @@ const drawTime = (date,x,y) => {
 const drawSeconds = (date,x,y,scale) => {
   scale = scale || 1
   if(date.getSeconds()>0)g.fillRect(x-(30*scale),y,x-(30*scale)+(date.getSeconds()*scale),y+scale-1);
-  g.fillRect(x-(32*scale),y+(2*scale),x+(32*scale),y+(2*scale))
-  g.fillRect(x,y+1,x,y+(2*scale))
-  g.fillRect(x-(32*scale),y,x-(32*scale),y+(2*scale))
-  g.fillRect(x+(32*scale),y,x+(32*scale),y+(2*scale))
+  g.drawLine(x-(32*scale),y+(2*scale),x+(32*scale),y+(2*scale))
+  g.drawLine(x,y+1,x,y+(2*scale))
+  g.drawLine(x-(32*scale),y,x-(32*scale),y+(2*scale))
+  g.drawLine(x+(32*scale),y,x+(32*scale),y+(2*scale))
   debugX(x,y)
 }
 const drawDateKanji = (date,x,y) => {
