@@ -55,8 +55,8 @@ const draw = () => {
   g.setColor(g.theme.fg);
   const date = new Date()
   drawTime(date,x,y)
-  drawDate(date,x,y+48)
-  drawDateKanji(date,x,y-45)
+  drawDate(date,x/2,y+48)
+  drawDateKanji(date,x*1.5,y+48+((66-48)/2))
   drawSeconds(date,x,y+32,2.5)
 
   batteryReadings.push(E.getBattery())
@@ -67,7 +67,7 @@ const draw = () => {
   const steps = (Bangle.getHealthStatus("day").steps/1000).toFixed(1)+'k'
 
   //g.setFontAlign(0, 0).setFont("6x8", 2).drawString(bpm+'|'+steps+'|'+battery, x, y+66);
-  drawHeartRate(x,y+66)
+  drawHeartRate(x/2,y+66)
 
   if(Bangle.isLocked()){
     g.setColor(batteryPercentage<50?1:0,batteryPercentage>25?1:0,0).drawImage(
