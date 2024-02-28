@@ -56,7 +56,7 @@ const draw = () => {
   const date = new Date()
   drawTime(date,x,y)
   drawDate(date,x,y+48)
-  drawDateKanji(date,x,y-60)
+  drawDateKanji(date,x,y-45)
   drawSeconds(date,x,y+32,2.5)
 
   batteryReadings.push(E.getBattery())
@@ -112,7 +112,7 @@ const drawSeconds = (date,x,y,scale) => {
 }
 const drawDateKanji = (date,x,y) => {
   const scale = 3
-  g.drawImage(kanjiDays[date.getDay()],x-(5*scale),y,{scale:scale});
+  g.drawImage(kanjiDays[date.getDay()],x-(5*scale),y-(5*scale),{scale:scale});
   debugX(x,y)
 }
 const drawDate = (date,x,y) => {
