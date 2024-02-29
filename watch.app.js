@@ -63,7 +63,7 @@ const draw = () => {
   if(batteryReadings.length>50) batteryReadings.shift()
   const batteryPercentage = batteryReadings.reduce((a,b)=>a+b)/batteryReadings.length
 
-  drawSteps(x*1.5,y-40)
+  drawSteps((x*2)-20,y-40)
   drawHeartRate(x/2,y+66)
 
   if(Bangle.isLocked()){
