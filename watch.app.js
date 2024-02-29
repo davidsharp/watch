@@ -126,7 +126,7 @@ const drawDate = (date,x,y) => {
 const drawSteps = (x,y) => {
   const steps = (Bangle.getHealthStatus("day").steps/1000).toFixed(1)+'k'
   g.setFontAlign(1, 0).setFont("6x8", 2).drawString(steps, x, y);
-  g.drawImage({width:10,height:10,buffer:atob("Hg/H+//////9/j8HgA==")},x+5,y-5,{scale:1});
+  g.drawImage({width:10,height:10,buffer:atob("A8Px/H8/h+TzkPA4AA==")},x+5,y-5,{scale:1});
   debugX(x,y)
 }
 const drawBattery = (x,y,batteryPercentage) => {
