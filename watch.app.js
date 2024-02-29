@@ -62,15 +62,13 @@ const draw = () => {
   batteryReadings.push(E.getBattery())
   if(batteryReadings.length>50) batteryReadings.shift()
   const batteryPercentage = batteryReadings.reduce((a,b)=>a+b)/batteryReadings.length
-  const battery = batteryPercentage.toFixed(0)+'%';
 
-  const steps = (Bangle.getHealthStatus("day").steps/1000).toFixed(1)+'k'
-
-  //g.setFontAlign(0, 0).setFont("6x8", 2).drawString(bpm+'|'+steps+'|'+battery, x, y+66);
+  drawSteps(x*1.5,y-40)
   drawHeartRate(x/2,y+66)
 
   if(Bangle.isLocked()){
     debugX((x*2)-15,5)
+    drawBattery((x*2)-15,10,batteryPercentage)
     g.setColor(batteryPercentage<50?1:0,batteryPercentage>25?1:0,0).drawImage(
       {
         width : 10, height : 10,
@@ -125,8 +123,17 @@ const drawDate = (date,x,y) => {
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y);
   debugX(x,y)
 }
-const drawSteps = (x,y) => {}
-const drawBattery = (x,y) => {}
+const drawSteps = (x,y) => {
+  const steps = (Bangle.getHealthStatus("day").steps/1000).toFixed(1)+'k'
+  g.setFontAlign(1, 0).setFont("6x8", 2).drawString(steps, x, y);
+  g.drawImage({width:10,height:10,buffer:atob("Hg/H+//////9/j8HgA==")},x+5,y-5,{scale:1});
+  debugX(x,y)
+}
+const drawBattery = (x,y,batteryPercentage) => {
+  const battery = Bangle.isCharging()?'bzz':batteryPercentage.toFixed(0)+'%';
+  g.setFontAlign(1, 0).setFont("6x8", 2).drawString(battery, x, y);
+  debugX(x,y)
+}
 const drawHeartRate = (x,y) => {
   g.setFontAlign(1, 0).setFont("6x8", 2).drawString(bpm, x, y);
   g.drawImage({width:10,height:10,buffer:atob("Ybz///////f4/B4DAA==")},x+5,y-5,{scale:1});
