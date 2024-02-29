@@ -70,6 +70,7 @@ const draw = () => {
   drawHeartRate(x/2,y+66)
 
   if(Bangle.isLocked()){
+    debugX((x*2)-15,5)
     g.setColor(batteryPercentage<50?1:0,batteryPercentage>25?1:0,0).drawImage(
       {
         width : 10, height : 10,
