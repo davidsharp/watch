@@ -68,7 +68,7 @@ const draw = () => {
 
   if(Bangle.isLocked()){
     debugX((x*2)-15,5)
-    drawBattery((x*2)-15,10,batteryPercentage)
+    drawBattery((x*2)-17,10,batteryPercentage)
     g.setColor(batteryPercentage<50?1:0,batteryPercentage>25?1:0,0).drawImage(
       {
         width : 10, height : 10,
@@ -130,8 +130,9 @@ const drawSteps = (x,y) => {
   debugX(x,y)
 }
 const drawBattery = (x,y,batteryPercentage) => {
-  const battery = Bangle.isCharging()?'bzz':batteryPercentage.toFixed(0)+'%';
-  g.setFontAlign(1, 0).setFont("6x8", 2).drawString(battery, x, y);
+  const battery = batteryPercentage.toFixed(0)+'%';
+  if(!Bangle.isCharging()) g.setFontAlign(1, 0).setFont("6x8", 2).drawString(battery, x, y);
+  else g.drawImage({width:10,height:10,buffer:atob("AwHA4HA/n8DgcDgMAA==")},x-10,y-5,{scale:1});
   debugX(x,y)
 }
 const drawHeartRate = (x,y) => {
