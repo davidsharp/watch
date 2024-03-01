@@ -2,5 +2,6 @@ require("Storage").write("watch.info",{
   "id":"dash-watch",
   "name":"Dash Watch",
   "type":"clock",
-  "src":"watch.app.js"
+  "src":"watch.app.js",
+  "icon":"watch.img"
 });
