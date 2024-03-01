@@ -55,16 +55,16 @@ const draw = () => {
   g.setColor(g.theme.fg);
   const date = new Date()
   drawTime(date,x,y)
-  drawDate(date,x/2,y+48)
-  drawDateKanji(date,x*1.5,y+48+((66-48)/2))
+  drawDate(date,(x/2)+8,y-40)
+  drawDateKanji(date,x/2,y+48+((66-48)/2))
   drawSeconds(date,x,y+32,2.5)
 
   batteryReadings.push(E.getBattery())
   if(batteryReadings.length>50) batteryReadings.shift()
   const batteryPercentage = batteryReadings.reduce((a,b)=>a+b)/batteryReadings.length
 
-  drawSteps((x*2)-20,y-40)
-  drawHeartRate(x/2,y+66)
+  drawSteps((x*2)-20,y+48)
+  drawHeartRate((x*2)-20,y+66)
 
   if(Bangle.isLocked()){
     debugX((x*2)-15,5)
