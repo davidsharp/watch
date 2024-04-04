@@ -54,10 +54,7 @@ const kanjiDays = [
 const draw = () => {
   const x = g.getWidth() / 2;
   const y = g.getHeight() / 2;
-  g.reset()
-  //if(dirty)g.clear();//Rect(Bangle.appRect); // clear whole background (w/o widgets)
-  g.setBgColor(g.theme.bg);
-  g.setColor(g.theme.fg);
+  g.reset();
   const date = new Date()
   drawTime(date,x,y)
   if(dirty || day != date.getDay()){
