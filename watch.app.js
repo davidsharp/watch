@@ -13,7 +13,9 @@ const bpmConfidenceCheck = (status) => {
 }
 let bpm = bpmConfidenceCheck(Bangle.getHealthStatus()) || '?'
 
-let batteryReadings = []
+let batteryReadings = new Int8Array(50)
+let bReadingIndex = 0
+let brActualLength = 0
 
 let day
 
@@ -64,9 +66,10 @@ const draw = () => {
   }
   drawSeconds(date,x,y+32,2.5)
 
-  batteryReadings.push(E.getBattery())
-  if(batteryReadings.length>50) batteryReadings.shift()
-  const batteryPercentage = batteryReadings.reduce((a,b)=>a+b)/batteryReadings.length
+  batteryReadings[bReadingIndex] = E.getBattery()
+  if(brActualLength<50) brActualLength++
+  const batteryPercentage = batteryReadings.reduce((a,b)=>a+b)/brActualLength
+  bReadingIndex = (bReadingIndex + 1) % 50
 
   drawSteps((x*2)-20,y+48,dirty) // using dirty for first draw
   drawHeartRate((x*2)-20,y+66,dirty) // could track proper first
