@@ -101,6 +101,7 @@ const draw = () => {
 
 const drawTime = (date,x,y) => {
   const size = 6
+  // drawing 88:88 means we don't need to redraw here
   g.setColor(g.theme.dark?0x222222:0xdddddd);
   g.setFontAlign(1, 0).setFont("5x9Numeric7Seg",size).drawString(88, x-(size/2), y);
   g.setFontAlign(-1, 0).setFont("5x9Numeric7Seg",size).drawString(88, x+(size*1.5), y);
