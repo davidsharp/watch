@@ -55,7 +55,7 @@ const draw = () => {
   const x = g.getWidth() / 2;
   const y = g.getHeight() / 2;
   g.reset()
-  if(dirty)g.clear();//Rect(Bangle.appRect); // clear whole background (w/o widgets)
+  //if(dirty)g.clear();//Rect(Bangle.appRect); // clear whole background (w/o widgets)
   g.setBgColor(g.theme.bg);
   g.setColor(g.theme.fg);
   const date = new Date()
@@ -75,6 +75,7 @@ const draw = () => {
   drawHeartRate((x*2)-20,y+66,dirty) // could track proper first
 
   if(Bangle.isLocked()){
+    g.clearRect(0,0,x*2,25)
     debugX((x*2)-15,5)
     drawBattery((x*2)-17,10,batteryPercentage)
     g.setColor(batteryPercentage<50?1:0,batteryPercentage>25?1:0,0).drawImage(
