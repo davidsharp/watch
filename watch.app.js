@@ -15,6 +15,8 @@ let bpm = bpmConfidenceCheck(Bangle.getHealthStatus()) || '?'
 
 let batteryReadings = []
 
+let day
+
 const kanjiDays = [
   {
     width : 10, height : 10,
@@ -50,13 +52,16 @@ const kanjiDays = [
 const draw = () => {
   const x = g.getWidth() / 2;
   const y = g.getHeight() / 2;
-  g.reset().clear();//Rect(Bangle.appRect); // clear whole background (w/o widgets)
+  g.reset()//.clear();//Rect(Bangle.appRect); // clear whole background (w/o widgets)
   g.setBgColor(g.theme.bg);
   g.setColor(g.theme.fg);
   const date = new Date()
   drawTime(date,x,y)
-  drawDate(date,(x/2)+8,y-40)
-  drawDateKanji(date,x/2,y+48+((66-48)/2))
+  if(day != date.getDay()){
+    day = date.getDay()
+    drawDate(date,(x/2)+8,y-40)
+    drawDayKanji(day,x/2,y+48+((66-48)/2))
+  }
   drawSeconds(date,x,y+32,2.5)
 
   batteryReadings.push(E.getBattery())
@@ -102,6 +107,8 @@ const drawTime = (date,x,y) => {
 }
 const drawSeconds = (date,x,y,scale) => {
   scale = scale || 1
+  g.clearRect(x-(30*scale),y,x-(30*scale)+(60*scale),y+scale-1
+)
   if(date.getSeconds()>0)g.fillRect(x-(30*scale),y,x-(30*scale)+(date.getSeconds()*scale),y+scale-1);
   g.drawLine(x-(32*scale),y+(2*scale),x+(32*scale),y+(2*scale))
   g.drawLine(x,y+1,x,y+(2*scale))
@@ -109,9 +116,10 @@ const drawSeconds = (date,x,y,scale) => {
   g.drawLine(x+(32*scale),y,x+(32*scale),y+(2*scale))
   debugX(x,y)
 }
-const drawDateKanji = (date,x,y) => {
+const drawDayKanji = (day,x,y) => {
   const scale = 3
-  g.drawImage(kanjiDays[date.getDay()],x-(5*scale),y-(5*scale),{scale:scale});
+  g.clearRect(x-(5*scale),y-(5*scale),x+(5*scale),y+(5*scale));
+  g.drawImage(kanjiDays[day],x-(5*scale),y-(5*scale),{scale:scale});
   debugX(x,y)
 }
 const drawDate = (date,x,y) => {
@@ -163,6 +171,7 @@ Bangle.on('health',status => {
 })
 // Load widgets
 Bangle.loadWidgets();
+g.clear();
 draw();
 setTimeout(Bangle.drawWidgets,0);
 }
