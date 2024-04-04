@@ -60,7 +60,7 @@ const draw = () => {
   g.setColor(g.theme.fg);
   const date = new Date()
   drawTime(date,x,y)
-  if(day != date.getDay()){
+  if(dirty || day != date.getDay()){
     day = date.getDay()
     drawDate(date,(x/2)+8,y-40)
     drawDayKanji(day,x/2,y+48+((66-48)/2))
