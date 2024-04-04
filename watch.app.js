@@ -17,6 +17,8 @@ let batteryReadings = []
 
 let day
 
+let dirty = true // for forcing a redraw
+
 const kanjiDays = [
   {
     width : 10, height : 10,
@@ -52,7 +54,8 @@ const kanjiDays = [
 const draw = () => {
   const x = g.getWidth() / 2;
   const y = g.getHeight() / 2;
-  g.reset()//.clear();//Rect(Bangle.appRect); // clear whole background (w/o widgets)
+  g.reset()
+  if(dirty)g.clear();//Rect(Bangle.appRect); // clear whole background (w/o widgets)
   g.setBgColor(g.theme.bg);
   g.setColor(g.theme.fg);
   const date = new Date()
@@ -85,6 +88,8 @@ const draw = () => {
   else {
     Bangle.drawWidgets()
   }
+
+  dirty = false
 
   // queue next draw
   if (drawTimeout) clearTimeout(drawTimeout);
@@ -169,6 +174,7 @@ Bangle.on('health',status => {
   // use last one if we're not confident
   bpm = bpmConfidenceCheck(status) || bpm
 })
+Bangle.on('lock',() => dirty = true)
 // Load widgets
 Bangle.loadWidgets();
 g.clear();
