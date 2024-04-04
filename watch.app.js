@@ -139,6 +139,7 @@ const drawDate = (date,x,y) => {
 }
 const drawSteps = (x,y,first) => {
   const steps = (Bangle.getHealthStatus("day").steps/1000).toFixed(1)+'k'
+  g.clearRect(x,y-8,x-60,y+8)
   g.setFontAlign(1, 0).setFont("6x8", 2).drawString(steps, x, y);
   if(first)g.drawImage({width:10,height:10,buffer:atob("A8Px/H8/h+TzkPA4AA==")},x+5,y-5,{scale:1});
   debugX(x,y)
@@ -150,6 +151,7 @@ const drawBattery = (x,y,batteryPercentage) => {
   debugX(x,y)
 }
 const drawHeartRate = (x,y,first) => {
+  g.clearRect(x,y-8,x-60,y+8)
   g.setFontAlign(1, 0).setFont("6x8", 2).drawString(bpm, x, y);
   if(first)g.drawImage({width:10,height:10,buffer:atob("Ybz///////f4/B4DAA==")},x+5,y-5,{scale:1});
   debugX(x,y)
