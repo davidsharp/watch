@@ -71,8 +71,8 @@ const draw = () => {
   if(batteryReadings.length>50) batteryReadings.shift()
   const batteryPercentage = batteryReadings.reduce((a,b)=>a+b)/batteryReadings.length
 
-  drawSteps((x*2)-20,y+48)
-  drawHeartRate((x*2)-20,y+66)
+  drawSteps((x*2)-20,y+48,dirty) // using dirty for first draw
+  drawHeartRate((x*2)-20,y+66,dirty) // could track proper first
 
   if(Bangle.isLocked()){
     debugX((x*2)-15,5)
@@ -136,10 +136,10 @@ const drawDate = (date,x,y) => {
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y);
   debugX(x,y)
 }
-const drawSteps = (x,y) => {
+const drawSteps = (x,y,first) => {
   const steps = (Bangle.getHealthStatus("day").steps/1000).toFixed(1)+'k'
   g.setFontAlign(1, 0).setFont("6x8", 2).drawString(steps, x, y);
-  g.drawImage({width:10,height:10,buffer:atob("A8Px/H8/h+TzkPA4AA==")},x+5,y-5,{scale:1});
+  if(first)g.drawImage({width:10,height:10,buffer:atob("A8Px/H8/h+TzkPA4AA==")},x+5,y-5,{scale:1});
   debugX(x,y)
 }
 const drawBattery = (x,y,batteryPercentage) => {
@@ -148,9 +148,9 @@ const drawBattery = (x,y,batteryPercentage) => {
   else g.drawImage({width:10,height:10,buffer:atob("AwHA4HA/n8DgcDgMAA==")},x-10,y-5,{scale:1});
   debugX(x,y)
 }
-const drawHeartRate = (x,y) => {
+const drawHeartRate = (x,y,first) => {
   g.setFontAlign(1, 0).setFont("6x8", 2).drawString(bpm, x, y);
-  g.drawImage({width:10,height:10,buffer:atob("Ybz///////f4/B4DAA==")},x+5,y-5,{scale:1});
+  if(first)g.drawImage({width:10,height:10,buffer:atob("Ybz///////f4/B4DAA==")},x+5,y-5,{scale:1});
   debugX(x,y)
 }
 const debugX = (x,y) => {
