@@ -2,7 +2,7 @@
   // we also define functions using 'let fn = function() {..}' for the same reason. function decls are global
 let drawTimeout;
 
-const DEBUG = true;
+const DEBUG = !true;
 
 require("Font5x9Numeric7Seg").add(Graphics);
 
