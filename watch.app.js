@@ -130,6 +130,8 @@ const drawDayKanji = (day,x,y) => {
   debugX(x,y)
 }
 const drawDate = (date,x,y) => {
+  g.clearRect(x-(6*6),y-8,x+(6*6),y+8)
+  debugRect(x-(6*6),y-8,x+(6*6),y+8)
   const dateStr = (date.getDate()+' '+require("date_utils").months(1)[date.getMonth()].toUpperCase()).padStart(6,'0')
   // TODO - move easter eggs (and maybe make them optional)
   if(dateStr == '14 FEB'){
@@ -163,6 +165,13 @@ const debugX = (x,y) => {
   g.setColor(1,0,0)
   g.drawLine(x,y-5,x,y+5)
   g.drawLine(x-5,y,x+5,y)
+  g.setColor(c)
+}
+const debugRect = (x1,y1,x2,y2) => {
+  if(!DEBUG) return;
+  const c = g.getColor()
+  g.setColor(1,0,0)
+  g.fillRect(x1,y1,x2,y2)
   g.setColor(c)
 }
 
