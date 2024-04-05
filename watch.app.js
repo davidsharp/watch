@@ -76,6 +76,7 @@ const draw = () => {
 
   if(Bangle.isLocked()){
     g.clearRect(0,0,x*2,25)
+    debugRect(0,0,x*2,25)
     debugX((x*2)-15,5)
     drawBattery((x*2)-17,10,batteryPercentage)
     g.setColor(batteryPercentage<50?1:0,batteryPercentage>25?1:0,0).drawImage(
@@ -114,8 +115,8 @@ const drawTime = (date,x,y) => {
 }
 const drawSeconds = (date,x,y,scale) => {
   scale = scale || 1
-  g.clearRect(x-(30*scale),y,x-(30*scale)+(60*scale),y+scale-1
-)
+  g.clearRect(x-(30*scale),y,x-(30*scale)+(60*scale),y+scale-1)
+  debugRect(x-(30*scale),y,x-(30*scale)+(60*scale),y+scale-1)
   if(date.getSeconds()>0)g.fillRect(x-(30*scale),y,x-(30*scale)+(date.getSeconds()*scale),y+scale-1);
   g.drawLine(x-(32*scale),y+(2*scale),x+(32*scale),y+(2*scale))
   g.drawLine(x,y+1,x,y+(2*scale))
@@ -125,7 +126,8 @@ const drawSeconds = (date,x,y,scale) => {
 }
 const drawDayKanji = (day,x,y) => {
   const scale = 3
-  g.clearRect(x-(5*scale),y-(5*scale),x+(5*scale),y+(5*scale));
+  //g.clearRect(x-(5*scale),y-(5*scale),x+(5*scale),y+(5*scale));
+  //debugRect(x-(5*scale),y-(5*scale),x+(5*scale),y+(5*scale));
   g.drawImage(kanjiDays[day],x-(5*scale),y-(5*scale),{scale:scale});
   debugX(x,y)
 }
@@ -143,6 +145,7 @@ const drawDate = (date,x,y) => {
 const drawSteps = (x,y,first) => {
   const steps = (Bangle.getHealthStatus("day").steps/1000).toFixed(1)+'k'
   g.clearRect(x,y-8,x-(12*5),y+8) //XX.Xk
+  debugRect(x,y-8,x-(12*5),y+8)
   g.setFontAlign(1, 0).setFont("6x8", 2).drawString(steps, x, y);
   if(first)g.drawImage({width:10,height:10,buffer:atob("A8Px/H8/h+TzkPA4AA==")},x+5,y-5,{scale:1});
   debugX(x,y)
@@ -155,6 +158,7 @@ const drawBattery = (x,y,batteryPercentage) => {
 }
 const drawHeartRate = (x,y,first) => {
   g.clearRect(x,y-8,x-(12*3),y+8)
+  debugRect(x,y-8,x-(12*3),y+8)
   g.setFontAlign(1, 0).setFont("6x8", 2).drawString(bpm, x, y);
   if(first)g.drawImage({width:10,height:10,buffer:atob("Ybz///////f4/B4DAA==")},x+5,y-5,{scale:1});
   debugX(x,y)
