@@ -17,8 +17,6 @@ let batteryReadings = new Int8Array(50)
 let bReadingIndex = 0
 let brActualLength = 0
 
-let day
-
 let dirty = true // for forcing a redraw
 
 const kanjiDays = [
@@ -59,10 +57,9 @@ const draw = () => {
   g.reset();
   const date = new Date()
   drawTime(date,x,y)
-  if(dirty || day != date.getDay()){
-    day = date.getDay()
+  if(dirty){
     drawDate(date,(x/2)+8,y-40)
-    drawDayKanji(day,x/2,y+48+((66-48)/2))
+    drawDayKanji(date.getDay(),x/2,y+48+((66-48)/2))
   }
   drawSeconds(date,x,y+32,2.5)
 
@@ -192,6 +189,7 @@ Bangle.on('health',status => {
   bpm = bpmConfidenceCheck(status) || bpm
 })
 Bangle.on('lock',() => dirty = true)
+Bangle.on('midnight',() => dirty = true)
 // Load widgets
 Bangle.loadWidgets();
 g.clear();
