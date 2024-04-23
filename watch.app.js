@@ -59,7 +59,7 @@ const draw = () => {
   g.reset();
   const date = new Date()
   drawTime(date,x,y)
-  if(dirty){
+  if(dirty || day != date.getDay()){
     day = date.getDay()
     drawDate(date,(x/2)+8,y-40)
     drawDayKanji(day,x/2,y+48+((66-48)/2))
@@ -192,6 +192,11 @@ Bangle.on('health',status => {
   bpm = bpmConfidenceCheck(status) || bpm
 })
 Bangle.on('lock',() => dirty = true)
+E.on('errorFlag', () => {
+  g.clear();
+  dirty = true;
+  draw();
+});
 // Load widgets
 Bangle.loadWidgets();
 g.clear();
