@@ -11,7 +11,8 @@ const bpmConfidenceCheck = (status) => {
   const conf = status.bpmConfidence || status.confidence
   return conf > 75 ? status.bpm : false
 }
-let bpm = bpmConfidenceCheck(Bangle.getHealthStatus()) || '?'
+let bpm = bpmConfidenceCheck(Bangle.getHealthStatus()) || '--'
+let bpmConfidenceStrikes = 0
 
 let batteryReadings = new Int8Array(50)
 let bReadingIndex = 0
@@ -188,8 +189,12 @@ Bangle.setUI({
     drawTimeout = undefined;
   }});
 Bangle.on('health',status => {
-  // use last one if we're not confident
-  bpm = bpmConfidenceCheck(status) || bpm
+  // if we're not confident 3 times, display '--'
+  // consider reporting less confident ('?' or grey)
+  const confidence = bpmConfidenceCheck(status)
+  if(confidence) bpmConfidenceStrikes = 0
+  else bpmConfidenceStrikes++
+  bpm = confidence || bpmConfidenceStrikes>=3 ? '--' : bpm
 })
 Bangle.on('lock',() => dirty = true)
 // suppress error messages by redrawing voer them
