@@ -188,13 +188,13 @@ Bangle.setUI({
     if (drawTimeout) clearTimeout(drawTimeout);
     drawTimeout = undefined;
   }});
-Bangle.on('HRM',status => {
+Bangle.on('Health',status => {
   // if we're not confident 3 times, display '--'
   // consider reporting less confident ('?' or grey)
   const confidence = bpmConfidenceCheck(status)
   if(confidence) bpmConfidenceStrikes = 0
   else bpmConfidenceStrikes++
-  bpm = confidence || bpmConfidenceStrikes>=3 ? '--' : bpm
+  bpm = confidence || (bpmConfidenceStrikes>=3 ? '--' : bpm)
 })
 Bangle.on('lock',() => dirty = true)
 // suppress error messages by redrawing voer them
