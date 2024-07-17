@@ -188,7 +188,7 @@ Bangle.setUI({
     if (drawTimeout) clearTimeout(drawTimeout);
     drawTimeout = undefined;
   }});
-Bangle.on('health',status => {
+Bangle.on('HRM',status => {
   // if we're not confident 3 times, display '--'
   // consider reporting less confident ('?' or grey)
   const confidence = bpmConfidenceCheck(status)
