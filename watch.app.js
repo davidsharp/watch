@@ -136,12 +136,15 @@ const drawDate = (date,x,y) => {
   g.clearRect(x-(6*6),y-8,x+(6*6),y+8)
   debugRect(x-(6*6),y-8,x+(6*6),y+8)
   const dateStr = (date.getDate()+' '+require("date_utils").months(1)[date.getMonth()].toUpperCase()).padStart(6,'0')
-  // TODO - move easter eggs (and maybe make them optional)
+  // TODO - move easter eggs (and maybe make them optional), also clear
   if(dateStr == '14 FEB'){
     g.drawImage({width:10,height:10,buffer:atob("Ybz///////f4/B4DAA==")},x+38,y-5,{scale:1})
   }
   if(dateStr == '31 OCT'){
     g.drawImage({width:10,height:10,buffer:atob("BgMH+//e8z//q9Xf4A==")},x+38,y-5,{scale:1})
+  }
+  if(dateStr == '25 DEC'){
+    g.drawImage({width:10,height:10,buffer:atob("CAcAgFA+H8Ph/P+HAA==")},x+38,y-5,{scale:1})
   }
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y);
   debugX(x,y)
