@@ -53,6 +53,12 @@ const kanjiDays = [
   },
 ]
 
+const eggs = {
+  '14 FEB': "Ybz///////f4/B4DAA==",
+  '31 OCT': "BgMH+//e8z//q9Xf4A==",
+  '25 DEC': "CAcAgFA+H8Ph/P+HAA==",
+}
+
 // Actually draw the watch face
 const draw = () => {
   const x = g.getWidth() / 2;
@@ -141,10 +147,7 @@ const drawDate = (date,x,y) => {
   debugX(x,y)
 }
 const dateEasterEgg = (dateStr,x,y) => {
-  let buffStr = null;
-  if(dateStr == '14 FEB') buffStr = "Ybz///////f4/B4DAA==";
-  if(dateStr == '31 OCT') buffStr = "BgMH+//e8z//q9Xf4A==";
-  if(dateStr == '25 DEC') buffStr = "CAcAgFA+H8Ph/P+HAA==";
+  let buffStr = eggs[dateStr]
   if(buffStr) g.drawImage({width: 10, height: 10, buffer: atob(buffStr)}, x, y, {scale: 1});
 }
 const drawSteps = (x,y,first) => {
