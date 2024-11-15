@@ -136,18 +136,16 @@ const drawDate = (date,x,y) => {
   g.clearRect(x-(6*6),y-8,x+(6*6)+12,y+8)
   debugRect(x-(6*6),y-8,x+(6*6)+12,y+8)
   const dateStr = (date.getDate()+' '+require("date_utils").months(1)[date.getMonth()].toUpperCase()).padStart(6,'0')
-  // TODO - move easter eggs (and maybe make them optional)
-  if(dateStr == '14 FEB'){
-    g.drawImage({width:10,height:10,buffer:atob("Ybz///////f4/B4DAA==")},x+38,y-5,{scale:1})
-  }
-  if(dateStr == '31 OCT'){
-    g.drawImage({width:10,height:10,buffer:atob("BgMH+//e8z//q9Xf4A==")},x+38,y-5,{scale:1})
-  }
-  if(dateStr == '25 DEC'){
-    g.drawImage({width:10,height:10,buffer:atob("CAcAgFA+H8Ph/P+HAA==")},x+38,y-5,{scale:1})
-  }
+  dateEasterEgg(dateStr,x+38,y-5);
   g.setFontAlign(0, 0).setFont("6x8", 2).drawString(dateStr, x, y);
   debugX(x,y)
+}
+const dateEasterEgg = (dateStr,x,y) => {
+  let buffStr = null;
+  if(dateStr == '14 FEB') buffStr = "Ybz///////f4/B4DAA==";
+  if(dateStr == '31 OCT') buffStr = "BgMH+//e8z//q9Xf4A==";
+  if(dateStr == '25 DEC') buffStr = "CAcAgFA+H8Ph/P+HAA==";
+  if(buffStr) g.drawImage({width: 10, height: 10, buffer: atob(buffStr)}, x, y, {scale: 1});
 }
 const drawSteps = (x,y,first) => {
   const steps = (Bangle.getHealthStatus("day").steps/1000).toFixed(1)+'k'
